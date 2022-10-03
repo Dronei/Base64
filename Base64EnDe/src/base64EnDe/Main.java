@@ -18,7 +18,6 @@ public class Main {
 			String sbaseout = "";
 			System.out.println("Enter String for Convertion: ");
 			System.out.println("or enter exit for close");
-			System.out.println("Do not enter spezial character!");
 			
 			try {
 				input = BR.readLine();
@@ -76,17 +75,20 @@ public class Main {
 					
 					//Check Binary length
 					int iadded = 0;
+					int ilength = binary.length();
+					int imod = ilength % 3;
 					
-					while(binary.length() % 3 > 0) {
+					while(imod > 0) {
 						//Add Zero Spaces
 						for(int i = 0; i < 8; i++){
 							binary += 0;
 						}	
+						imod--;
 						iadded++;
 					}
 									
 					//Split String to 6 Bits
-					int strArrLength = binary.length() / 6;
+					int strArrLength = ilength / 6 + iadded;
 					String[] strArrSplitt = new String[strArrLength];
 					int strArrIter = 0;
 					
@@ -101,7 +103,7 @@ public class Main {
 						strArrIter++;
 					}
 					
-					//Convert 6 Bit to dezimal
+					//Convert 6 Bit to decimal
 					int sum = 0;
 					
 					for(int i2 = 0; i2 < strArrSplitt.length; i2++) {
@@ -111,9 +113,6 @@ public class Main {
 						
 						if(strArrSplitt[i2].equals("000000")) {
 							if(i2 == strArrSplitt.length) {
-								
-							}
-							if(i2 == strArrSplitt.length - 1) {
 								
 							}
 						}
