@@ -23,15 +23,14 @@ public class Main {
 				"2","3","4","5","6","7","8","9",
 				"+","/"};
 		
-		int iadded = 0;
-		 
-		
 		while(xbrun == true) {	
+			int iadded = 0;
 			String sbaseout = "";
 			System.out.println("Enter String for Convertion: ");
 			System.out.println("or enter exit for close");
 			
 			try {
+				input = "";
 				input = BR.readLine();
 				
 				if(input.equals("exit") || input.equals("")) {
@@ -92,8 +91,6 @@ public class Main {
 						iadded++;
 					}
 					
-					System.out.println(binary);
-									
 					//Split String to 6 Bits
 					int strArrLength = binary.length() / 6;
 					String[] strArrSplitt = new String[strArrLength];
@@ -112,7 +109,7 @@ public class Main {
 					//Convert 6 Bit to decimal
 					int sum = 0;
 					
-					//Remove added Array Elements
+					//Remove added 0-Bytes Elements
 					int iremove = iadded;
 					
 					while(iremove != 0) {
