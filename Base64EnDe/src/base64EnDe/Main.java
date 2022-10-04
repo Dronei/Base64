@@ -12,6 +12,18 @@ public class Main {
 		
 		String input = "";
 		boolean xbrun = true;
+		
+		String strArrBase[] = {"A","B","C","D","E","F","G",
+				"H","I","J","K","L","M","N",
+				"O","P","Q","R","S","T","U","V",
+				"W","X","Y","Z","a","b","c","d", 
+				"e","f","g","h","i","j","k","l",
+				"m","n","o","p","q","r","s","t",
+				"u","v","w","x","y","z","0","1",
+				"2","3","4","5","6","7","8","9",
+				"+","/"};
+		
+		int iadded = 0;
 		 
 		
 		while(xbrun == true) {	
@@ -22,7 +34,7 @@ public class Main {
 			try {
 				input = BR.readLine();
 				
-				if(input.equals("exit")) {
+				if(input.equals("exit") || input.equals("")) {
 					xbrun = false;
 				}
 				
@@ -71,27 +83,21 @@ public class Main {
 						
 					}
 					
-					System.out.println(binary);
-					
 					//Check Binary length
-					int iadded = 0;
-					int ilength = binary.length();
-					int imod = ilength % 3;
-					
-					while(imod > 0) {
+					while(binary.length() % 3 > 0) {
 						//Add Zero Spaces
 						for(int i = 0; i < 8; i++){
 							binary += 0;
-						}	
-						imod--;
+						}
 						iadded++;
 					}
+					
+					System.out.println(binary);
 									
 					//Split String to 6 Bits
-					int strArrLength = ilength / 6 + iadded;
+					int strArrLength = binary.length() / 6;
 					String[] strArrSplitt = new String[strArrLength];
 					int strArrIter = 0;
-					
 					int searchstart = 0;
 					int searchend = 6;
 					
@@ -106,15 +112,24 @@ public class Main {
 					//Convert 6 Bit to decimal
 					int sum = 0;
 					
+					//Remove added Array Elements
+					int iremove = iadded;
+					
+					while(iremove != 0) {
+						int iarrLen = strArrSplitt.length;
+						
+						strArrSplitt[iarrLen - iremove] = "";
+						
+						iremove--;
+					}
+					
 					for(int i2 = 0; i2 < strArrSplitt.length; i2++) {
 						
 						int factor = 0;
 						String str = strArrSplitt[i2];
 						
-						if(strArrSplitt[i2].equals("000000")) {
-							if(i2 == strArrSplitt.length) {
-								
-							}
+						if(str.equals("")) {
+							
 						}
 						
 						else {
@@ -136,19 +151,10 @@ public class Main {
 							}
 							
 							//Convert Base64 to String
-							String strArrBase[] = {"A","B","C","D","E","F","G",
-													"H","I","J","K","L","M","N",
-													"O","P","Q","R","S","T","U","V",
-													"W","X","Y","Z","a","b","c","d", 
-													"e","f","g","h","i","j","k","l",
-													"m","n","o","p","q","r","s","t",
-													"u","v","w","x","y","z","0","1",
-													"2","3","4","5","6","7","8","9",
-													"+","/"};
-							
 							sbaseout += strArrBase[sum];
 						 	
 							sum = 0;
+							}
 						}
 					}
 					
@@ -156,8 +162,8 @@ public class Main {
 					for(int i3 = 0; i3 < iadded; i3++) {
 						sbaseout += "=";
 					}
-					System.out.println(sbaseout);
-					}
+					
+						System.out.println(sbaseout);
 				}
 			 catch (IOException e) {
 				e.printStackTrace();
