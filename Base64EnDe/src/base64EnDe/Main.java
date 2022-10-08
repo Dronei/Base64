@@ -1,3 +1,9 @@
+/* Created by Michael Putz
+ * 1YVIF - HTL Pinkafeld
+ * Austria
+ * Year 2022/23 
+ */
+
 package base64EnDe;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,7 +52,7 @@ public class Main {
 	    hashMapBase.put('b', "011011");
 	    hashMapBase.put('c', "011100");
 	    hashMapBase.put('d', "011101");
-	    hashMapBase.put('e', "010100");
+	    hashMapBase.put('e', "011110");
 	    hashMapBase.put('f', "011111");
 	    hashMapBase.put('g', "100000");
 	    hashMapBase.put('h', "100001");
@@ -80,7 +86,7 @@ public class Main {
 	    hashMapBase.put('9', "111101");
 	    hashMapBase.put('+', "111110");
 	    hashMapBase.put('/', "111111");
-	    hashMapBase.put('=', "");
+	    hashMapBase.put('=', "000000");
 		
 		//Hex Table
 		HashMap<Character, String> hashMapHex = new HashMap<Character, String>();
@@ -105,7 +111,10 @@ public class Main {
 		
 		
 		while(xbrun == true) {	
-			System.out.println("Enter 1 for Encoding or 2 for Decoding, or enter exit for close.");
+			System.out.println("Enter 1 for Encoding \n"
+					+ "Enter 2 for Decoding \n"
+					+ "Enter ? for help. \n"
+					+ "Enter exit or leave blank to close \n");
 			
 			
 			try {
@@ -115,8 +124,11 @@ public class Main {
 				switch(input) {
 				case "exit": xbrun = false; break;
 				case "": xbrun = false; break;
-				case "1": System.out.println("Enter String for Encoding: "); input = ""; input = BR.readLine(); System.out.println(Encode(input, hashMapHex));System.out.println("\n"); break;
-				case "2": System.out.println("Enter String for Decoding: "); input = ""; input = BR.readLine(); System.out.println(Decode(input, hashMapBase));System.out.println("\n"); break;
+				case "1": System.out.println("Enter String for Encoding: \n"); input = ""; input = BR.readLine(); System.out.println(Encode(input, hashMapHex));System.out.println("\n"); break;
+				case "2": System.out.println("Enter String for Decoding: \n"); input = ""; input = BR.readLine(); System.out.println(Decode(input, hashMapBase));System.out.println("\n"); break;
+				case "?": System.out.println("Coded by Michael Putz, 1AVIF, 2022/23 \n"
+						+ "use 1 for encoding a string to base64 like Michael to TWljaGFlbA== \n"
+						+ "use 2 for decoding a base64 to string like TWljaGFlbA== to Michael \n");break;
 				default: System.out.println("Ivalid Input!");
 				}
 			}
@@ -239,8 +251,22 @@ public static String Encode(String input, HashMap<Character, String> hashMap) {
 		return sbaseout;
 	}
 
-public static String Decode(String input, HashMap<Character, String> hashMapBase) {
+public static String Decode(String input, HashMap<Character, String> hashMapBase) {	
 	char chararr[] = input.toCharArray();
+	//Check Input for illegal Character
+	String sFound = "";
+	boolean bIllegal = false;
+	
+	for(char c : chararr) {
+		sFound = hashMapBase.get(c);
+		
+		if(sFound == null) {
+			bIllegal = true;
+			break;
+		}
+	}
+	
+	if(bIllegal == false) {
 	//Base64 Table
 	    String binaryfrombase = "";
 	    String out = "";
@@ -267,11 +293,23 @@ public static String Decode(String input, HashMap<Character, String> hashMapBase
 
 		    char c=(char)iparse;
 		    
-		    out += c;
+		    if(iparse != 0) {
+		    	out += c;
+		    }
+		    
+		    else {
+		    	
+		    }
 	    }
 	    return out;
 }
+	else {
+		return "Illegal Character found! No Decode possible!";
+	}
 }
+}
+
+
 
 
 
